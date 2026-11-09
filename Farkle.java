@@ -9,7 +9,7 @@ public class Farkle {
 
         System.out.println("------------------------------------------------");
         System.out.println("|           Zag Farkle by Aiden Munger         |");
-        System.out.println("|               Copyright 2023                 |");
+        System.out.println("|               Copyright 2026                 |");
         System.out.println("------------------------------------------------");
 
         System.out.print("How many points would you like to play in this game? [10000] ");
@@ -38,9 +38,7 @@ public class Farkle {
 
         for (int i = 1; i <= numPlayers; i++) {
 
-            System.out.print(
-                    "What is the player #" + i +
-                    "'s name? [Unknown Player #" + i + "] ");
+            System.out.print("What is the player #" + i + "'s name? [Unknown Player #" + i + "] ");
 
             String name = scanner.nextLine().trim();
 
@@ -52,6 +50,7 @@ public class Farkle {
         }
 
         boolean gameOver = false;
+        Player triggerPlayer = null;
 
         while (!gameOver) {
 
@@ -67,20 +66,46 @@ public class Farkle {
                 System.out.println("Current total points:");
 
                 for (Player p : players) {
-                    System.out.println(
-                            p.getName() + " " +
-                            p.getScore());
+                    System.out.println(p.getName() + " " + p.getScore());
                 }
 
                 System.out.println();
 
                 if (player.getScore() >= targetScore) {
+                    triggerPlayer = player;
                     gameOver = true;
                     break;
                 }
             }
         }
+    
+        if (triggerPlayer != null) {
 
+            System.out.println();
+            System.out.println("================================");
+            System.out.println(triggerPlayer.getName() + " started the endgame!");
+            System.out.println("All remaining players get ONE final turn.");
+            System.out.println("================================");
+            System.out.println();
+
+            int startIndex = players.indexOf(triggerPlayer);
+
+            for (int i = startIndex + 1; i < players.size(); i++) {
+
+                Player player = players.get(i);
+
+                System.out.println();
+                System.out.println("Final turn for "
+                        + player.getName());
+
+                Turn turn = new Turn(player.getName());
+
+                int points = turn.run();
+
+                player.addScore(points);
+            }
+        }
+        
         Player winner = players.get(0);
 
         for (Player p : players) {
@@ -99,8 +124,7 @@ public class Farkle {
         }
 
         System.out.println("================================");
-
-        scanner.close();
+        //scanner.close();
     }
 
     public static String normalizeUsername(String username) {

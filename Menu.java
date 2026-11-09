@@ -27,7 +27,10 @@ public class Menu {
                     hand.displayUnusedDice();
                     System.out.print("Select a die letter to add: ");
                     String letter = scanner.nextLine().trim().toUpperCase();
-
+                    if (letter.isEmpty()) {
+                        System.out.println("Cancelled.");
+                        break;
+                    }
                     int index = letter.charAt(0) - 'A';
 
                     if (index >= 0 && index < hand.unusedSize()) {
@@ -65,6 +68,7 @@ public class Menu {
 
                 case "E":
                     turn.bank();
+                    running = false;
                     break;
 
                 case "Q":
@@ -84,6 +88,6 @@ public class Menu {
             }
         }
 
-        scanner.close();
+        // scanner.close();
     }
 }
