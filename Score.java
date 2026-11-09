@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public class Score{
+public class Score {
     
     public static int calculate(Meld meld) {
         ArrayList<Dice> dice = meld.getDice();
 
-        if (dice.isEmpty()){
+        if (dice.isEmpty()) {
             return 0;
         }
 
@@ -19,7 +19,7 @@ public class Score{
 
         // Straight
         boolean isStraight = true;
-        for (int i = 1; i <= 6; i++){
+        for (int i = 1; i <= 6; i++) {
             if (counts[i] != 1){
                 isStraight = false;
                 break;
@@ -28,6 +28,25 @@ public class Score{
 
         if (isStraight){
             return 1000;
+        }
+
+        boolean fullHouse = false;
+        boolean hasThree = false;
+        boolean hasTwo = false;
+
+        for (int i = 1; i <= 6; i++) {
+            if (counts[i] == 3) {
+                hasThree = true;
+            }
+            if (counts[i] == 2) {
+                hasTwo = true;
+            }
+        }
+
+        fullHouse = hasThree && hasTwo;
+
+        if (fullHouse) {
+            return 1500;
         }
 
         // Three pairs
@@ -58,10 +77,10 @@ public class Score{
 
             // Single 1s and 5s (only if fewer than 3)
             if (count < 3) {
-                if (face == 1){
+                if (face == 1) {
                     score += count * 100;
                 }
-                if (face == 5){
+                if (face == 5) {
                     score += count * 50;
                 }
 

@@ -12,7 +12,7 @@ public class ScoreTest {
         testScore("Single one", new int[]{1}, 100);
         testScore("Three threes", new int[]{3, 3, 3}, 300);
         testScore("Triple ones", new int[]{1, 1, 1}, 1000);
-
+        testScore("Full house", new int[]{2, 2, 4, 4, 4}, 1500);
         Hand hand = new Hand(2, 3, 4, 6, 2, 3);
         testBoolean("Farkle detection", true, hand.isFarkle());
 

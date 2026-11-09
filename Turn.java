@@ -15,16 +15,16 @@ public class Turn {
         System.out.println("Starting hand:");
         hand.displayUnusedDice();
 
-        if (hand.isFarkle()){
+        if (hand.isFarkle()) {
             System.out.println("FARKLE! No scoring combos available.");
             System.out.println("Your turn ends with 0 points.");
             turnActive = false;
         }
     }
 
-    public void run(){
+    public int run() {
         if (!turnActive) {
-            return;
+            return 0;
         }
 
         while (turnActive) {
@@ -32,6 +32,8 @@ public class Turn {
         }
 
         System.out.println("Turn comlete. Total score: " + totalScore);
+
+        return totalScore;
     }
 
     public void bank() {
@@ -80,7 +82,7 @@ public class Turn {
                 hand.displayUnusedDice();
             } else if (choice.equals("E")) {
                 bank();
-                scanner.close();
+                // scanner.close();
             } else {
                 System.out.println("Invalid selection. Turn continues.");
             }
@@ -111,4 +113,7 @@ public class Turn {
         return turnActive;
     }
 
+    public int getScore() {
+        return totalScore;
+    }
 }
